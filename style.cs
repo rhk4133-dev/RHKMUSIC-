@@ -1,71 +1,90 @@
 body{
     margin:0;
     font-family:Arial;
-    background:#0f0f0f;
+    background:#121212;
     color:white;
 }
 
-/* LOGIN */
-.login-body{
+.container{
     display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    background:linear-gradient(45deg,#0f0,#00f);
+    height:90vh;
 }
 
-.login-box{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-}
-
-.login-box input{
-    display:block;
-    margin:15px 0;
-    padding:10px;
-    width:200px;
-}
-
-/* MAIN LAYOUT */
-.main{
-    display:flex;
-}
-
+/* SIDEBAR */
 .sidebar{
-    width:200px;
-    background:#111;
+    width:220px;
+    background:#000;
     padding:20px;
 }
 
 .sidebar p{
     margin:15px 0;
+    color:#b3b3b3;
     cursor:pointer;
 }
 
-/* GLASS CARD */
-.content{
+.sidebar p:hover{
+    color:white;
+}
+
+/* MAIN */
+.main{
     flex:1;
+    padding:30px;
+    overflow:auto;
+}
+
+.song-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:20px;
+}
+
+.song-card{
+    background:#181818;
+    padding:15px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.song-card:hover{
+    background:#282828;
+    transform:scale(1.05);
+}
+
+.song-card img{
+    width:100%;
+    border-radius:10px;
+}
+
+.song-card h4{
+    margin-top:10px;
+}
+
+/* BOTTOM PLAYER */
+.bottom-player{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:90px;
+    background:#181818;
     display:flex;
-    justify-content:center;
     align-items:center;
-    height:100vh;
+    justify-content:space-between;
+    padding:10px 20px;
 }
 
-.glass-card{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(20px);
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 0 30px #0f0;
+.song-info{
+    display:flex;
+    align-items:center;
 }
 
-.glass-card img{
-    width:200px;
-    border-radius:20px;
+.song-info img{
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    margin-right:15px;
     animation:spin 6s linear infinite;
     animation-play-state:paused;
 }
@@ -75,35 +94,27 @@ body{
 }
 
 .controls button{
-    margin:10px;
-    padding:10px 20px;
-    background:#0f0;
+    margin:0 10px;
+    padding:10px 15px;
+    background:#1db954;
     border:none;
-    border-radius:10px;
+    border-radius:50%;
+    color:white;
     cursor:pointer;
 }
 
-/* EQUALIZER */
-.equalizer{
-    display:flex;
-    justify-content:center;
-    margin:15px 0;
+.progress-container{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:#333;
+    cursor:pointer;
 }
 
-.equalizer span{
-    width:5px;
-    height:20px;
-    background:#0f0;
-    margin:0 3px;
-    animation:wave 1s infinite ease-in-out;
-}
-
-.equalizer span:nth-child(2){animation-delay:0.2s;}
-.equalizer span:nth-child(3){animation-delay:0.4s;}
-.equalizer span:nth-child(4){animation-delay:0.6s;}
-.equalizer span:nth-child(5){animation-delay:0.8s;}
-
-@keyframes wave{
-    0%,100%{height:20px;}
-    50%{height:60px;}
+.progress{
+    height:100%;
+    width:0%;
+    background:#1db954;
 }
