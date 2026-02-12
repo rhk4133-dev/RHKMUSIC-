@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RHK Premium Music</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+<div class="login-box">
+    <h2>RHK MUSIC</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login(){
+    let user=document.getElementById("username").value;
+    let pass=document.getElementById("password").value;
+
+    if(user==="raghav" && pass==="1234"){
+        window.location.href="player.html";
+    }else{
+        alert("Wrong Login");
+    }
+}
+</script>
+
+</body>
+</html>
