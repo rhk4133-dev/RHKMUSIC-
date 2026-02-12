@@ -1,27 +1,44 @@
 const songs=[
-    {name:"Song 1",file:"song1.mp3",img:"img1.jpg"}
+    {name:"KAGADADA DONIYALLI",file:"song1.mp3",img:"img1.jpg"},
+    {name:"KANAVE KANAVE",file:"song2.mp3",img:"img2.jpg"},
+    {name:"ZARA ZARA",file:"song3.mp3",img:"img3.jpg"},
+    {name:"DIL LAGANA",file:"song4.mp3",img:"img4.jpg"},
+    {name:"ENGLISH SONG",file:"song5.mp3",img:"img5.jpg"}
 ];
 
 const audio=document.getElementById("audio");
-const cover=document.getElementById("cover");
-const title=document.getElementById("title");
+const songGrid=document.getElementById("songGrid");
+const bottomImg=document.getElementById("bottomImg");
+const bottomTitle=document.getElementById("bottomTitle");
 const playBtn=document.getElementById("playBtn");
-const upload=document.getElementById("upload");
+const progress=document.getElementById("progress");
 
-let playing=false;
 let current=0;
+let playing=false;
+
+/* Load Songs Grid */
+songs.forEach((song,index)=>{
+    const div=document.createElement("div");
+    div.classList.add("song-card");
+    div.innerHTML=`
+        <img src="${song.img}">
+        <h4>${song.name}</h4>
+    `;
+    div.onclick=()=>loadSong(index);
+    songGrid.appendChild(div);
+});
 
 function loadSong(i){
     current=i;
     audio.src=songs[i].file;
-    cover.src=songs[i].img;
-    title.innerText=songs[i].name;
+    bottomImg.src=songs[i].img;
+    bottomTitle.innerText=songs[i].name;
     play();
 }
 
 function play(){
     audio.play();
-    cover.style.animationPlayState="running";
+    bottomImg.style.animationPlayState="running";
     playBtn.innerText="⏸";
     playing=true;
 }
@@ -34,7 +51,7 @@ function toggle(){
 
     if(playing){
         audio.pause();
-        cover.style.animationPlayState="paused";
+        bottomImg.style.animationPlayState="paused";
         playBtn.innerText="▶";
     }else{
         play();
@@ -52,21 +69,14 @@ function prev(){
     loadSong(current);
 }
 
-/* Upload Song */
-upload.addEventListener("change",function(){
-    const file=this.files[0];
-    if(file){
-        const url=URL.createObjectURL(file);
-        audio.src=url;
-        title.innerText=file.name;
-        play();
+/* Progress */
+audio.addEventListener("timeupdate",()=>{
+    if(audio.duration){
+        progress.style.width=(audio.currentTime/audio.duration)*100+"%";
     }
 });
 
-/* Download */
-function downloadSong(){
-    const link=document.createElement("a");
-    link.href=audio.src;
-    link.download="song.mp3";
-    link.click();
+function seek(e){
+    const width=e.currentTarget.clientWidth;
+    audio.currentTime=(e.offsetX/width)*audio.duration;
 }
